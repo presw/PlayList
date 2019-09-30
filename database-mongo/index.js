@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
 
+mongoose.connect('mongodb://localhost/test');
 const db = mongoose.connection;
 
 db.on('error', () => {
@@ -13,14 +14,14 @@ db.once('open', () => {
 
 const itemSchema = mongoose.Schema({
   quantity: Number,
-  description: String
+  description: String,
 });
 
 const Item = mongoose.model('Item', itemSchema);
 
 const selectAll = (callback) => {
   Item.find({}, (err, items) => {
-    if(err) {
+    if (err) {
       callback(err, null);
     } else {
       callback(null, items);
