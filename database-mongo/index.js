@@ -17,7 +17,10 @@ db.once('openUri', () => {
 });
 
 const gameSchema = mongoose.Schema({
-  id: Number,
+  id: {
+    type: Number,
+    unique: true,
+  },
   owned: Boolean,
   category: Number,
   series: {
@@ -27,6 +30,7 @@ const gameSchema = mongoose.Schema({
   cover: {
     id: Number,
     image_id: String,
+    image_url: String,
   },
   name: String,
   platforms: [
@@ -39,12 +43,14 @@ const gameSchema = mongoose.Schema({
     {
       id: Number,
       image_id: String,
+      image_url: String,
     },
   ],
   artwork: [
     {
       id: Number,
       image_id: String,
+      image_url: String,
     },
   ],
   slug: String,
@@ -68,10 +74,35 @@ const selectAll = (callback) => {
   Game.find({}, (err, games) => {
     if (err) {
       callback(err, null);
-    } else {
-      callback(null, games);
     }
+    callback(null, games);
   });
 };
 
-module.exports.selectAll = selectAll;
+const insertAll = (gamesArray, callback) => {
+  Game.insertMany(gamesArray, (err, games) => {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    }
+    console.log(games);
+    callback(null, games);
+  });
+};
+
+const insert = (game, callback) => {
+  Game.insert(game, (err, res) => {
+    if (err) {
+      console.log(err);
+      callback(err, null);
+    }
+    console.log(res);
+    callback(null, res);
+  });
+};
+
+module.exports = {
+  selectAll,
+  insertAll,
+  insert,
+};
