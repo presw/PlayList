@@ -18,10 +18,12 @@ const List = (props) => {
     title = 'Search Results';
   }
   return (
-    <div>
-      <h4> {title} </h4>
-      There are { games.length } games in {location}.
-      <div id="games-container">
+    <div className="all-games-display">
+      <div className="games-container-text">
+        <h4> {title} </h4>
+        There are { games.length } games in {location}.
+      </div>
+      <div className="games-container">
         { games.map((game) => <ListItem key={game.id} view={view} game={game} clickCover={clickCover} clickAddToWishlist={clickAddToWishList} clickAddToLibrary={clickAddToLibrary} />)}
       </div>
     </div>

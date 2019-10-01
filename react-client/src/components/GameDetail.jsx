@@ -19,17 +19,19 @@ const GameDetail = (props) => {
         {total_rating ? (
           <p>Rating: {total_rating.toFixed(2)}</p>
         ) : (
-          <div />
+          <p>No rating available</p>
         )}
       </div>
-      <div className="cover-photo-container">
-        <img src={cover.image_url} />
+      <div className="cover-summary-container">
+        <div className="cover-container">
+          <img src={cover.image_url} alt="cover" />
+        </div>
+        <div className="summary-container">
+          <p>{summary}</p>
+        </div>
       </div>
       <div>
-        <p>{summary}</p>
-      </div>
-      <div>
-        {screenshots.map((screenshot) => <img src={screenshot.image_url} key={screenshot.id} />)}
+        {screenshots.map((screenshot) => <img src={screenshot.image_url} key={screenshot.id} alt="screenshot" />)}
       </div>
       <div>
         {websites.map((website) => <div key={website.id}>{website.url}</div>)}

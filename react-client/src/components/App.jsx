@@ -57,7 +57,6 @@ class App extends React.Component {
   clickAddToLibrary(game) {
     axios.post('/api/library/addGame', game)
       .then((response) => {
-        // do some stuff with the response
       })
       .catch((error) => {
         console.log(error);
@@ -65,15 +64,12 @@ class App extends React.Component {
   }
 
   clickAddToWishList(game) {
-    // do other stuff
     axios.post('/api/wishlist/addGame', game)
       .then((response) => {
-        // do some stuff with the response
       });
   }
 
   clickCover(game) {
-    // console.log(game);
     this.setState({ view: 'gameDetail', gameDetail: game });
     this.componentDidMount();
   }
@@ -88,8 +84,6 @@ class App extends React.Component {
     this.componentDidMount();
   }
 
-  // How to render three views?
-  // start on search page
   render() {
     const {
       library,
@@ -104,20 +98,23 @@ class App extends React.Component {
     } else if (view === 'searchResults') {
       display = searchResults;
     }
-    // const display = games;
     return (
       <div>
         <div className="list-header">
           <h1>Play List</h1>
-          <div onClick={this.displayLibrary}>My Library</div>
-          <div onClick={this.displayWishlist}>My Wishlist</div>
+          <div className="category-button add-to button" onClick={this.displayLibrary}>My Library</div>
+          <div className="category-button add-to button" onClick={this.displayWishlist}>My Wishlist</div>
         </div>
         {view === 'gameDetail' ? (
           <GameDetail gameDetail={gameDetail} />
         ) : (
           <div>
-            <Search getSearchResults={this.getSearchResults} />
-            <List games={display} view={view} clickCover={this.clickCover} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
+            <div className="list-header">
+              <Search getSearchResults={this.getSearchResults} />
+            </div>
+            <div>
+              <List games={display} view={view} clickCover={this.clickCover} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
+            </div>
           </div>
         )}
       </div>

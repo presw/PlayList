@@ -25,8 +25,8 @@ const ListItem = (props) => {
         {view === 'searchResults'
           ? (
             <div className="add-buttons-field">
-              <div className="add-to-library-button" onClick={() => clickAddToLibrary(game)}>Add to Library</div>
-              <div className="add-to-wishlist-button" onClick={() => clickAddToWishlist(game)}>Add to Wishlist</div>
+              <div className="add-to-library-button add-to" onClick={() => clickAddToLibrary(game)}>Add to Library</div>
+              <div className="add-to-wishlist-button add-to" onClick={() => clickAddToWishlist(game)}>Add to Wishlist</div>
             </div>
           ) : null}
         <div className="image-container" onClick={() => clickCover(game)}>
