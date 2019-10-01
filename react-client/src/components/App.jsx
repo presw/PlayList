@@ -88,7 +88,7 @@ class App extends React.Component {
       <div>
         <h1>Play List</h1>
         <Search getSearchResults={this.getSearchResults} />
-        <List games={display} view={view} clickAddToLibrary={this.clickAddToLibrary} />
+        <List games={display} view={view} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
       </div>
     );
   }

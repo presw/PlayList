@@ -9,7 +9,7 @@ const ListItem = (props) => {
   const {
     game,
     clickAddToLibrary,
-    clickAddToWishList,
+    clickAddToWishlist,
     view,
   } = props;
   const { cover } = game;
@@ -25,7 +25,7 @@ const ListItem = (props) => {
           ? (
             <div className="add-buttons-field">
               <div className="add-to-library-button" onClick={() => clickAddToLibrary(game)}>Add to Library</div>
-              <div className="add-to-wishlist-button" onClick={() => clickAddToWishList(game)}>Add to Wishlist</div>
+              <div className="add-to-wishlist-button" onClick={() => clickAddToWishlist(game)}>Add to Wishlist</div>
             </div>
           ) : null}
         <div className="image-container">
