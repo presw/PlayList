@@ -7,13 +7,13 @@ import ListItem from './ListItem';
 import gamesProp from '../../types/index';
 
 const List = (props) => {
-  const { games, clickAddToLibrary } = props;
+  const { games, clickAddToLibrary, view } = props;
   return (
     <div>
       <h4> List Component </h4>
       There are { games.length } games.
       <div id="games-container">
-        { games.map((game) => <ListItem key={game.id} game={game} clickAddToLibrary={clickAddToLibrary} />)}
+        { games.map((game) => <ListItem key={game.id} view={view} game={game} clickAddToLibrary={clickAddToLibrary} />)}
       </div>
     </div>
   );
