@@ -18,6 +18,8 @@ class App extends React.Component {
     this.getSearchResults = this.getSearchResults.bind(this);
     this.clickAddToLibrary = this.clickAddToLibrary.bind(this);
     this.clickAddToWishList = this.clickAddToWishList.bind(this);
+    this.displayLibrary = this.displayLibrary.bind(this);
+    this.displayWishlist = this.displayWishlist.bind(this);
   }
 
   componentDidMount() {
@@ -59,12 +61,20 @@ class App extends React.Component {
       });
   }
 
-  clickAddToWishList() {
+  clickAddToWishList(game) {
     // do other stuff
-    axios.post('/api/wishlist/addGame')
+    axios.post('/api/wishlist/addGame', game)
       .then((response) => {
         // do some stuff with the response
       });
+  }
+
+  displayLibrary() {
+    this.setState({ view: 'library' });
+  }
+
+  displayWishlist() {
+    this.setState({ view: 'wishlist' });
   }
 
   // How to render three views?
@@ -82,11 +92,12 @@ class App extends React.Component {
     } else if (view === 'searchResults') {
       display = searchResults;
     }
-    console.log(library);
     // const display = games;
     return (
       <div>
         <h1>Play List</h1>
+        <div onClick={this.displayLibrary}>My Library</div>
+        <div onClick={this.displayWishlist}>My Wishlist</div>
         <Search getSearchResults={this.getSearchResults} />
         <List games={display} view={view} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
       </div>
