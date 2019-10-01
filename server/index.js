@@ -35,12 +35,10 @@ app.get('/api/search/:searchTerm', (req, res) => {
       for (let i = 0; i < data.length; i += 1) {
         const game = data[i];
         const { screenshots, cover, artwork } = game;
-        // console.log('Game', game);
-        // console.log('Cover', cover);
-        // console.log('GameName:', game.name);
-        const coverURL = `http://images.igdb.com/igdb/image/upload/t_cover_big/${cover.image_id}.jpg`;
-        game.cover.image_url = coverURL;
-
+        if (cover) {
+          const coverURL = `http://images.igdb.com/igdb/image/upload/t_cover_big/${cover.image_id}.jpg`;
+          game.cover.image_url = coverURL;
+        }
         if (typeof screenshots !== 'undefined') {
           for (let j = 0; j < screenshots.length; j += 1) {
             const screenshot = screenshots[j];
@@ -56,11 +54,6 @@ app.get('/api/search/:searchTerm', (req, res) => {
           }
         }
       }
-      // games.insertAll(data, (err, data) => {
-      //   if (err) {
-      //     console.log(err);
-      //   }
-      // });
       res.send(data);
     })
     .catch((error) => {
@@ -69,17 +62,23 @@ app.get('/api/search/:searchTerm', (req, res) => {
 });
 
 app.post('/api/library/addGame', (req, res) => {
-  console.log(req.body);
+  const game = req.body;
+  game.owned = true;
   games.insert(game, (err, data) => {
     if (err) {
       console.log(err);
     }
-    console.log(data);
   });
 });
 
 app.post('/api/wishlist/addGame', (req, res) => {
-  // do other stuff;
+  const game = req.body;
+  game.owned = false;
+  games.insert(game, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 app.listen(port, () => {
