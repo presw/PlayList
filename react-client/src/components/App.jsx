@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 import List from './List';
 import Search from './Search';
+import GameDetail from './GameDetail';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends React.Component {
       library: [],
       wishlist: [],
       searchResults: [],
+      gameDetail: null,
       view: 'library',
     };
     this.getSearchResults = this.getSearchResults.bind(this);
@@ -20,6 +22,7 @@ class App extends React.Component {
     this.clickAddToWishList = this.clickAddToWishList.bind(this);
     this.displayLibrary = this.displayLibrary.bind(this);
     this.displayWishlist = this.displayWishlist.bind(this);
+    this.clickCover = this.clickCover.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
@@ -52,7 +55,6 @@ class App extends React.Component {
   }
 
   clickAddToLibrary(game) {
-    // do stuff
     axios.post('/api/library/addGame', game)
       .then((response) => {
         // do some stuff with the response
@@ -68,6 +70,12 @@ class App extends React.Component {
       .then((response) => {
         // do some stuff with the response
       });
+  }
+
+  clickCover(game) {
+    // console.log(game);
+    this.setState({ view: 'gameDetail', gameDetail: game });
+    this.componentDidMount();
   }
 
   displayLibrary() {
@@ -88,6 +96,7 @@ class App extends React.Component {
       wishlist,
       searchResults,
       view,
+      gameDetail,
     } = this.state;
     let display = library;
     if (view === 'wishlist') {
@@ -104,11 +113,11 @@ class App extends React.Component {
           <div onClick={this.displayWishlist}>My Wishlist</div>
         </div>
         {view === 'gameDetail' ? (
-          <div>Game Detail Page</div>
+          <GameDetail gameDetail={gameDetail} />
         ) : (
           <div>
             <Search getSearchResults={this.getSearchResults} />
-            <List games={display} view={view} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
+            <List games={display} view={view} clickCover={this.clickCover} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
           </div>
         )}
       </div>
