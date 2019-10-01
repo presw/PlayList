@@ -20,6 +20,7 @@ class App extends React.Component {
     this.clickAddToWishList = this.clickAddToWishList.bind(this);
     this.displayLibrary = this.displayLibrary.bind(this);
     this.displayWishlist = this.displayWishlist.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -71,10 +72,12 @@ class App extends React.Component {
 
   displayLibrary() {
     this.setState({ view: 'library' });
+    this.componentDidMount();
   }
 
   displayWishlist() {
     this.setState({ view: 'wishlist' });
+    this.componentDidMount();
   }
 
   // How to render three views?
@@ -95,11 +98,19 @@ class App extends React.Component {
     // const display = games;
     return (
       <div>
-        <h1>Play List</h1>
-        <div onClick={this.displayLibrary}>My Library</div>
-        <div onClick={this.displayWishlist}>My Wishlist</div>
-        <Search getSearchResults={this.getSearchResults} />
-        <List games={display} view={view} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
+        <div className="list-header">
+          <h1>Play List</h1>
+          <div onClick={this.displayLibrary}>My Library</div>
+          <div onClick={this.displayWishlist}>My Wishlist</div>
+        </div>
+        {view === 'gameDetail' ? (
+          <div>Game Detail Page</div>
+        ) : (
+          <div>
+            <Search getSearchResults={this.getSearchResults} />
+            <List games={display} view={view} clickAddToWishList={this.clickAddToWishList} clickAddToLibrary={this.clickAddToLibrary} />
+          </div>
+        )}
       </div>
     );
   }

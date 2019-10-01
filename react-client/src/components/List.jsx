@@ -8,10 +8,19 @@ import gamesProp from '../../types/index';
 
 const List = (props) => {
   const { games, clickAddToLibrary, clickAddToWishList, view } = props;
+  let location = 'your library';
+  let title = 'Library';
+  if (view === 'wishlist') {
+    location = 'your wishlist';
+    title = 'Wishlist';
+  } else if (view === 'searchResults') {
+    location = 'the search results';
+    title = 'Search Results';
+  }
   return (
     <div>
-      <h4> List Component </h4>
-      There are { games.length } games.
+      <h4> {title} </h4>
+      There are { games.length } games in {location}.
       <div id="games-container">
         { games.map((game) => <ListItem key={game.id} view={view} game={game} clickAddToWishlist={clickAddToWishList} clickAddToLibrary={clickAddToLibrary} />)}
       </div>

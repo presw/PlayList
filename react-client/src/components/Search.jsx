@@ -21,6 +21,7 @@ class Search extends React.Component {
     e.preventDefault();
     const { searchTerm } = this.state;
     const { getSearchResults } = this.props;
+    e.target.reset();
     getSearchResults(searchTerm);
   }
 
