@@ -85,18 +85,17 @@ const insertAll = (gamesArray, callback) => {
       console.log(err);
       callback(err, null);
     }
-    console.log(games);
     callback(null, games);
   });
 };
 
 const insert = (game, callback) => {
-  Game.insert(game, (err, res) => {
+  const gameInsert = new Game(game);
+  gameInsert.save(game, (err, res) => {
     if (err) {
       console.log(err);
       callback(err, null);
     }
-    console.log(res);
     callback(null, res);
   });
 };
