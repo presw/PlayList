@@ -7,7 +7,7 @@ import ListItem from './ListItem';
 import gamesProp from '../../types/index';
 
 const List = (props) => {
-  const { games, clickAddToLibrary, clickAddToWishList, view } = props;
+  const { games, clickAddToLibrary, clickAddToWishList, clickCover, view } = props;
   let location = 'your library';
   let title = 'Library';
   if (view === 'wishlist') {
@@ -22,7 +22,7 @@ const List = (props) => {
       <h4> {title} </h4>
       There are { games.length } games in {location}.
       <div id="games-container">
-        { games.map((game) => <ListItem key={game.id} view={view} game={game} clickAddToWishlist={clickAddToWishList} clickAddToLibrary={clickAddToLibrary} />)}
+        { games.map((game) => <ListItem key={game.id} view={view} game={game} clickCover={clickCover} clickAddToWishlist={clickAddToWishList} clickAddToLibrary={clickAddToLibrary} />)}
       </div>
     </div>
   );

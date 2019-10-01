@@ -10,6 +10,7 @@ const ListItem = (props) => {
     game,
     clickAddToLibrary,
     clickAddToWishlist,
+    clickCover,
     view,
   } = props;
   const { cover } = game;
@@ -28,7 +29,7 @@ const ListItem = (props) => {
               <div className="add-to-wishlist-button" onClick={() => clickAddToWishlist(game)}>Add to Wishlist</div>
             </div>
           ) : null}
-        <div className="image-container">
+        <div className="image-container" onClick={() => clickCover(game)}>
           {coverURL ? <img src={coverURL} alt="game cover" /> : <div>No Cover</div>}
         </div>
       </div>
