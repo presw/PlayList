@@ -23,8 +23,18 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/library')
       .then((response) => {
-        const library = response.data;
-        this.setState({ library });
+        const games = response.data;
+        const library = [];
+        const wishlist = [];
+        for (let i = 0; i < games.length; i += 1) {
+          const game = games[i];
+          if (game.owned) {
+            library.push(game);
+          } else {
+            wishlist.push(game);
+          }
+        }
+        this.setState({ library, wishlist });
       })
       .catch((error) => console.log(error));
   }
@@ -34,7 +44,7 @@ class App extends React.Component {
     axios.get(`/api/search/${searchTerm}`)
       .then((response) => {
         const searchResults = response.data;
-        this.setState({ searchResults });
+        this.setState({ searchResults, view: 'searchResults' });
       });
   }
 
@@ -76,9 +86,9 @@ class App extends React.Component {
     // const display = games;
     return (
       <div>
-        <h1>Bloop</h1>
+        <h1>Play List</h1>
         <Search getSearchResults={this.getSearchResults} />
-        <List games={display} clickAddToLibrary={this.clickAddToLibrary} />
+        <List games={display} view={view} clickAddToLibrary={this.clickAddToLibrary} />
       </div>
     );
   }
