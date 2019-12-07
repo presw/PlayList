@@ -2,7 +2,7 @@
 const express = require('express');
 const axios = require('axios');
 const games = require('../database-mongo');
-const config = require('./config');
+const config = require('../config');
 
 const port = 3000;
 const app = express();
