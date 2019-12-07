@@ -2,7 +2,7 @@
 const express = require('express');
 const axios = require('axios');
 const games = require('../database-mongo');
-const igdbKey = require('./config');
+const config = require('./config');
 
 const port = 3000;
 const app = express();
@@ -25,7 +25,7 @@ app.get('/library', (req, res) => {
 app.get('/api/search/:searchTerm', (req, res) => {
   const { searchTerm } = req.params;
   const query = `fields category,collection.name,cover.image_id,name,screenshots.image_id,slug,storyline,summary,total_rating,version_parent,websites.url,platforms.abbreviation; search "${searchTerm}";`;
-  const headers = { 'user-key': igdbKey };
+  const headers = { 'user-key': config.igdbKey };
   axios.get(gamesHost, {
     headers,
     data: query,
